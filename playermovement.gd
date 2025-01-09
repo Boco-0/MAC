@@ -164,3 +164,4 @@ func _process(delta: float) -> void:
 		set_inertia(JUMP_VECTOR)
 	if abs(v) < max_speed:
 		apply_central_impulse(input*100*delta)
+		
