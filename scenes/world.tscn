@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cbvnws21jha45"]
+[gd_scene load_steps=38 format=3 uid="uid://cbvnws21jha45"]
 
 [ext_resource type="PackedScene" uid="uid://ba1wtu47ipvgu" path="res://scenes/pause_screen.tscn" id="1_dwm8j"]
 [ext_resource type="Texture2D" uid="uid://bbipo2oa3urmv" path="res://assets/images/map.png" id="1_xukio"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/Update_GUI.gd" id="3_a063c"]
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="5_dama6"]
 [ext_resource type="Texture2D" uid="uid://d3mxn51ovv0eq" path="res://assets/images/GUI images/score.png" id="5_w0rub"]
+[ext_resource type="FontFile" uid="uid://da8augcwyljjt" path="res://assets/images/Title screen images/Minecraft.ttf" id="6_3yklr"]
 [ext_resource type="PackedScene" uid="uid://b4mkn4s3rtu35" path="res://scenes/Gun.tscn" id="6_a2o81"]
 [ext_resource type="Texture2D" uid="uid://c3r5v8sxsavc2" path="res://assets/images/GUI images/crosshair.png" id="6_mjlbh"]
 [ext_resource type="MeshLibrary" uid="uid://thev1wat7uvs" path="res://meshlib/flooring.tres" id="7_tsaf1"]
@@ -14,7 +15,12 @@
 [ext_resource type="MeshLibrary" uid="uid://bveehg5vnww2i" path="res://meshlib/vision_blockers.tres" id="8_sg082"]
 [ext_resource type="MeshLibrary" uid="uid://braa8y5xv3ybh" path="res://meshlib/tiles.tres" id="9_31vwk"]
 [ext_resource type="Texture2D" uid="uid://b1vs5ng6nk1sh" path="res://assets/images/GUI images/bluebar.png" id="9_cp50t"]
+[ext_resource type="AudioStream" uid="uid://dh3ohlyt3i21s" path="res://assets/audio/walking.mp3" id="11_415ym"]
+[ext_resource type="AudioStream" uid="uid://bro01j0kybs6p" path="res://assets/audio/jump.mp3" id="11_jnr0o"]
 [ext_resource type="Script" path="res://scripts/secondplayer.gd" id="12_mwr16"]
+[ext_resource type="AudioStream" uid="uid://ctie8oggcsscr" path="res://assets/audio/running.mp3" id="12_ptrej"]
+[ext_resource type="AudioStream" uid="uid://bk13env2skpsm" path="res://assets/audio/gunshot.mp3" id="13_ehhc2"]
+[ext_resource type="AudioStream" uid="uid://dv8ey4w2okhyv" path="res://assets/audio/slide.mp3" id="15_d1rob"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_diidr"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -346,92 +352,60 @@ text = "crouch status:"
 
 [node name="Control" type="Control" parent="GUI"]
 layout_mode = 3
-anchors_preset = 9
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_a063c")
 
-[node name="L_score" type="Label" parent="GUI/Control"]
-layout_mode = 0
-offset_left = 384.0
-offset_top = 50.0
-offset_right = 404.0
-offset_bottom = 92.0
-theme_override_font_sizes/font_size = 30
-text = "0"
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
 
-[node name="R_score" type="Label" parent="GUI/Control"]
-layout_mode = 0
-offset_left = 759.0
-offset_top = 48.0
-offset_right = 787.0
-offset_bottom = 90.0
-theme_override_font_sizes/font_size = 30
-text = "0"
-
-[node name="score_bar" type="Sprite2D" parent="GUI/Control"]
-position = Vector2(583, 73)
-scale = Vector2(0.337389, 0.24625)
+[node name="score_bar" type="Sprite2D" parent="GUI/Control/VBoxContainer"]
+position = Vector2(20, 92)
+scale = Vector2(0.616362, 0.512623)
 texture = ExtResource("5_w0rub")
 
-[node name="leftside" type="Control" parent="GUI/Control"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(14.4, 16.12)
+[node name="L_score" type="Label" parent="GUI/Control/VBoxContainer/score_bar"]
+offset_left = -770.624
+offset_top = -36.5482
+offset_right = -686.624
+offset_bottom = 114.452
+theme_override_fonts/font = ExtResource("6_3yklr")
+theme_override_font_sizes/font_size = 120
+text = "0"
 
-[node name="left_crosshair" type="Sprite2D" parent="GUI/Control/leftside"]
-self_modulate = Color(1, 1, 1, 0.501961)
-position = Vector2(19.7917, 19.9752)
-scale = Vector2(0.0694444, 0.0620347)
-texture = ExtResource("6_mjlbh")
-
-[node name="left_health" type="Control" parent="GUI/Control/leftside"]
-anchors_preset = 0
-offset_left = 0.694444
-offset_top = 36.1663
-offset_right = 573.694
-offset_bottom = 96.1663
-scale = Vector2(0.068038, 0.0709823)
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="GUI/Control/leftside/left_health"]
-self_modulate = Color(1, 1, 1, 0.501961)
-layout_mode = 0
-offset_top = -17.4789
-offset_right = 300.0
-offset_bottom = 76.5211
-scale = Vector2(1.13799, 0.770044)
-texture_under = ExtResource("7_yk7x2")
-texture_progress = ExtResource("8_axiuk")
-
-[node name="Left_stamina" type="Control" parent="GUI/Control/leftside"]
-layout_mode = 1
-anchor_top = 0.935
-anchor_bottom = 0.935
-offset_top = -1.23375
-offset_right = 550.0
-offset_bottom = 63.7663
-scale = Vector2(0.0719973, -0.0970007)
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="GUI/Control/leftside/Left_stamina"]
-self_modulate = Color(1, 1, 1, 0.501961)
-layout_mode = 0
-offset_left = 16.3972
-offset_top = 12.7906
-offset_right = 318.397
-offset_bottom = 99.7906
-scale = Vector2(0.778387, 0.484296)
-value = 100.0
-texture_under = ExtResource("7_yk7x2")
-texture_progress = ExtResource("9_cp50t")
+[node name="R_score" type="Label" parent="GUI/Control/VBoxContainer/score_bar"]
+offset_left = 681.706
+offset_top = -36.5482
+offset_right = 765.706
+offset_bottom = 114.452
+theme_override_fonts/font = ExtResource("6_3yklr")
+theme_override_font_sizes/font_size = 120
+text = "0"
 
 [node name="rightside" type="Control" parent="GUI/Control"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 595.0
-offset_right = 635.0
-offset_bottom = 40.0
-scale = Vector2(13.96, 16.08)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -990.0
+offset_top = -540.0
+offset_right = -948.0
+offset_bottom = -500.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(23.4776, 26.9757)
 
 [node name="right_crosshair" type="Sprite2D" parent="GUI/Control/rightside"]
 self_modulate = Color(1, 1, 1, 0.501961)
@@ -443,11 +417,11 @@ texture = ExtResource("6_mjlbh")
 layout_mode = 1
 anchor_top = 0.935
 anchor_bottom = 0.935
-offset_left = 0.429802
-offset_top = -2.02252
-offset_right = 550.43
-offset_bottom = 62.9775
-scale = Vector2(0.0716141, 0.0603484)
+offset_left = 7.07058
+offset_top = -2.18309
+offset_right = 557.071
+offset_bottom = 62.8169
+scale = Vector2(0.0581215, 0.0489784)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="GUI/Control/rightside/right_health"]
 self_modulate = Color(1, 1, 1, 0.501961)
@@ -465,13 +439,78 @@ texture_progress = ExtResource("8_axiuk")
 layout_mode = 1
 anchor_top = 0.935
 anchor_bottom = 0.935
-offset_left = 0.429802
-offset_top = -6.11891
-offset_right = 550.43
-offset_bottom = 58.8811
-scale = Vector2(0.0721159, 0.0609216)
+offset_left = 7.24095
+offset_top = -7.03932
+offset_right = 557.241
+offset_bottom = 57.9607
+scale = Vector2(0.0577615, 0.0487954)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="GUI/Control/rightside/right_stamina"]
+self_modulate = Color(1, 1, 1, 0.501961)
+layout_mode = 0
+offset_left = 295.012
+offset_top = -6.12479
+offset_right = 597.012
+offset_bottom = 80.8752
+scale = Vector2(0.82313, 0.777879)
+value = 100.0
+texture_under = ExtResource("7_yk7x2")
+texture_progress = ExtResource("9_cp50t")
+
+[node name="leftside" type="Control" parent="GUI/Control"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1920.0
+offset_top = -540.0
+offset_right = -1878.0
+offset_bottom = -500.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(23.4776, 26.9757)
+
+[node name="left_crosshair" type="Sprite2D" parent="GUI/Control/leftside"]
+self_modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(19.8424, 19.9005)
+scale = Vector2(0.0716332, 0.062189)
+texture = ExtResource("6_mjlbh")
+
+[node name="left_health" type="Control" parent="GUI/Control/leftside"]
+layout_mode = 1
+anchor_top = 0.935
+anchor_bottom = 0.935
+offset_left = -9.6688
+offset_top = -2.18309
+offset_right = 540.331
+offset_bottom = 62.8169
+scale = Vector2(0.0581215, 0.0489784)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="GUI/Control/leftside/left_health"]
+self_modulate = Color(1, 1, 1, 0.501961)
+layout_mode = 0
+offset_left = 209.056
+offset_top = -1.92701
+offset_right = 509.056
+offset_bottom = 92.073
+scale = Vector2(1.12105, 0.889534)
+value = 100.0
+texture_under = ExtResource("7_yk7x2")
+texture_progress = ExtResource("8_axiuk")
+
+[node name="left_stamina" type="Control" parent="GUI/Control/leftside"]
+layout_mode = 1
+anchor_top = 0.935
+anchor_bottom = 0.935
+offset_left = -14.3967
+offset_top = -7.03932
+offset_right = 535.603
+offset_bottom = 57.9607
+scale = Vector2(0.0577615, 0.0487954)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="GUI/Control/leftside/left_stamina"]
 self_modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 0
 offset_left = 295.012
@@ -494,6 +533,29 @@ collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_nsb4f")
 lock_rotation = true
 script = ExtResource("5_dama6")
+
+[node name="sound effects" type="Node3D" parent="firstplayer"]
+
+[node name="Walking" type="AudioStreamPlayer3D" parent="firstplayer/sound effects"]
+stream = ExtResource("11_415ym")
+pitch_scale = 1.1
+
+[node name="Sprinting" type="AudioStreamPlayer3D" parent="firstplayer/sound effects"]
+stream = ExtResource("12_ptrej")
+pitch_scale = 1.5
+
+[node name="Gunshot" type="AudioStreamPlayer3D" parent="firstplayer/sound effects"]
+stream = ExtResource("13_ehhc2")
+pitch_scale = 1.2
+
+[node name="Jumping" type="AudioStreamPlayer3D" parent="firstplayer/sound effects"]
+stream = ExtResource("11_jnr0o")
+volume_db = -20.0
+pitch_scale = 1.2
+
+[node name="slide" type="AudioStreamPlayer3D" parent="firstplayer/sound effects"]
+stream = ExtResource("15_d1rob")
+volume_db = 10.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="firstplayer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
