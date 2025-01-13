@@ -85,7 +85,7 @@ scale = Vector2(0.800478, 0.800478)
 texture = ExtResource("6_uqycu")
 
 [node name="Slimegun" type="Sprite2D" parent="Background"]
-position = Vector2(1525, 610)
+position = Vector2(1537, 610)
 rotation = -0.785398
 scale = Vector2(0.365393, 0.365393)
 texture = ExtResource("5_m783v")

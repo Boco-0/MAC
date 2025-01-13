@@ -42,3 +42,7 @@ func _process(_delta):
 
 
 	
+
+
+func _on_slide_timer_timeout() -> void:
+	pass # Replace with function body.

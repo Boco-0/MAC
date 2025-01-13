@@ -128,25 +128,7 @@ func _uncrouch_collision() -> bool: # same but for roof
 		return true
 	return false
 
-func _footsteps():
-	if _touching_floor() == false:
-		if Input.is_action_pressed("left"):
-			walk_sound.play()
-		elif Input.is_action_pressed("right"):
-			walk_sound.play()
-		elif Input.is_action_pressed("forward"):
-			walk_sound.play()
-		elif Input.is_action_pressed("back"):
-			walk_sound.play()
-		if Input.is_action_just_released("left"):
-			walk_sound.stop()
-		if Input.is_action_just_released("right"):
-			walk_sound.stop()
-		if Input.is_action_just_released("forward"):
-			walk_sound.stop()
-		if Input.is_action_just_released("back"):
-			walk_sound.stop()
-		
+
 
 func _process(delta: float) -> void:
 	# setup
@@ -187,6 +169,7 @@ func _process(delta: float) -> void:
 			crouch_check = true
 			max_speed = Global.MAX_CROUCH_SPEED # change max speed
 		elif not crouch_check: # same but if speed is high and not crouching
+			slide_sound.play()
 			slide_check = true
 			label.text = "slide down"
 			
@@ -227,7 +210,6 @@ func _process(delta: float) -> void:
 		
 	# main processes 
 	if slide_check: # if sliding
-		slide_sound.play()
 		input = Vector3.ZERO
 		target_fov += 20
 		if not lock_direction:   # jeff voodoo
@@ -271,7 +253,7 @@ func _process(delta: float) -> void:
 		sprint_toggle = 0
 		paused = true
 	
-	_footsteps()
+	
 	
 	#fov code
 	camera.fov = lerp(camera.fov, target_fov, delta*4)
