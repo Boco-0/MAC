@@ -549,7 +549,8 @@ pitch_scale = 1.2
 [node name="Jumping" type="AudioStreamPlayer3D" parent="firstplayer/sound effects"]
 stream = ExtResource("11_jnr0o")
 volume_db = -20.0
-pitch_scale = 1.2
+max_db = -5.0
+pitch_scale = 1.25
 
 [node name="slide" type="AudioStreamPlayer3D" parent="firstplayer/sound effects"]
 stream = ExtResource("15_d1rob")
@@ -664,7 +665,13 @@ metadata/_editor_floor_ = Vector3(0, 8, 0)
 [node name="bench" parent="More obstacles" instance=ExtResource("11_jq5i6")]
 transform = Transform3D(-2.86139e-08, 0, -0.654609, 0, 0.654609, 0, 0.654609, 0, -2.86139e-08, -4.99785, 0, 53.3441)
 
+[node name="bench2" parent="More obstacles" instance=ExtResource("11_jq5i6")]
+transform = Transform3D(-2.86138e-08, 0, 0.654608, 0, 0.654608, 0, -0.654608, 0, -2.86138e-08, -55.1301, 0, 57.0533)
+
 [node name="Rubbishbin2_0" parent="More obstacles" instance=ExtResource("11_fil8a")]
 transform = Transform3D(1.1767, 0, 0, 0, 1.1767, 0, 0, 0, 1.1767, -5.23379, -2.3814e-07, 51.7374)
+
+[node name="Rubbishbin2_1" parent="More obstacles" instance=ExtResource("11_fil8a")]
+transform = Transform3D(1.1767, 0, 0, 0, 1.1767, 0, 0, 0, 1.1767, -54.8795, -2.3814e-07, 58.3035)
 
 [connection signal="timeout" from="firstplayer/SlideTimer" to="CanvasLayer/pause screen" method="_on_slide_timer_timeout"]
